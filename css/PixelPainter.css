@@ -1,0 +1,59 @@
+.emptyBoxes {
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+}
+
+.gridRows {
+    display: flex;
+}
+
+#gradient {
+    /* background-image:  url("../css/assests/colorWheel.png"); */
+    background-position: center;
+    background-size: 700px, 700px;
+    position: absolute;
+    margin: 50px;
+    padding: 0;
+    width: 475px;
+    height: 475px;
+    border: 1px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    display: block;
+    box-shadow: 0 0 3pt 2pt black;
+    left: 50px;
+}
+
+#colorWheelCanvas {
+    /* z-index: -2; */
+    width: 575px;
+    height: 575px;
+    padding: 0;
+    position: relative;
+    right: 50px;
+    bottom: 63px;
+    /* margin: 0px;
+    padding: 0;
+    width: 600px;
+    height: 600px; */
+}
+
+#colorPicker {
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative;
+    left: 23px;
+    top: 232px;
+    z-index: 1;
+}
+
+#colorbox {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    position: absolute;
+    right: 20px;
+}
