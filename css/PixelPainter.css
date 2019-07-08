@@ -1,7 +1,33 @@
+html {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+#grid {
+    position: absolute;
+}
+
+#gridRow1 {
+    border-top: 1px solid black;
+}
+
 .emptyBoxes {
-    border: 1px solid black;
-    height: 20px;
-    width: 20px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    height: 15px;
+    width: 15px;
+    transition-property: background;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    }
+
+.emptyBoxes:hover {
+    transition-property: background;
+    transition-duration: 0.25s;
+    transition-timing-function: linear;
 }
 
 .gridRows {
@@ -9,34 +35,32 @@
 }
 
 #gradient {
-    /* background-image:  url("../css/assests/colorWheel.png"); */
-    background-position: center;
-    background-size: 700px, 700px;
     position: absolute;
-    margin: 50px;
+    background-color: white;
+    margin: 0px;
     padding: 0;
-    width: 475px;
-    height: 475px;
+    width: 376px;
+    height: 376px;
     border: 1px solid white;
     border-radius: 50%;
     overflow: hidden;
     display: block;
-    box-shadow: 0 0 3pt 2pt black;
-    left: 50px;
+    box-shadow: 0 0 10pt 2pt black;
+    left: 1100px;
+    top: 100px;
+    text-align: center;
 }
 
 #colorWheelCanvas {
-    /* z-index: -2; */
-    width: 575px;
-    height: 575px;
-    padding: 0;
-    position: relative;
-    right: 50px;
-    bottom: 63px;
-    /* margin: 0px;
-    padding: 0;
-    width: 600px;
-    height: 600px; */
+    z-index: 0;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #colorPicker {
@@ -44,16 +68,120 @@
     height: 10px;
     border: 2px solid black;
     border-radius: 50%;
-    position: relative;
-    left: 23px;
-    top: 232px;
-    z-index: 1;
+    position: absolute;
+}
+
+#colorBoxes {
+    z-index: 2;
+    display: flex;
+    position: absolute;
+    top: 550px;
+    left: 1120px;
 }
 
 #colorbox {
-    width: 200px;
-    height: 200px;
+    width: 125px;
+    height: 125px;
     border: 1px solid black;
-    position: absolute;
-    right: 20px;
+    border-radius: 15%;
+    box-shadow: 0 0 10pt 2pt black;
+    margin-right: 50px;
 }
+
+#saveColorBox {
+    width: 175px;
+    height: 125px;
+    border: 1px solid black;
+    border-radius: 10%;
+    box-shadow: 0 0 10pt 2pt black;
+}
+
+#saveColorBox button{
+    position: relative;
+    display: block;
+    height: 50.8%;
+    width: 20%;
+    margin-left: 81%;
+    border: 1px solid black;
+    bottom: 1px;
+    /* transition: all 0.3s linear; */
+}
+
+#save4 {
+    position: relative;
+    /* display: block; */
+    width: 20%;
+    border: 0;
+    margin: 0;
+    float:left;
+    left: 80px;
+}
+
+#save4 button {
+    height: 25.4%;
+    width: 100%;
+    border: 1px solid black;
+    font-size: 10px;
+    
+}
+
+#saveButton {
+    border-top-right-radius: 20%;
+    background-image: url("./assests/iconDown.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* #saveButton img {
+    content: url('./assests/iconDown.png');
+    transition: all 0.3s linear;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+} */
+
+/* #saveButton:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+} */
+
+
+#loadButton {
+    border-bottom-right-radius: 18%;
+    background-image: url("./assests/iconUp.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .animation {
+    -webkit-transform: translate(100px, -100px);
+    -moz-transform: translate(100px, -100px);
+    -o-transform: translate(100px, -100px);
+    -ms-transform: translate(100px, -100px);
+    transform: translate(100px, 100px);
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.animation2 {
+    -webkit-animation: fadeIn 0.4s ease-out;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation: fadeIn 0.4s ease-out;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-fill-mode: forwards;
+    -moz-animation-delay: 0.4s;
+    animation: fadeIn 0.4s ease-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.4s;
+} */

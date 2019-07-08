@@ -36,11 +36,10 @@ let prevColor;
 let clickPrevColor;
 let click = false;
 let dontChange = false;
-//initiate undo and redo arrays
-let undoArr = new Array();
-let redoArr = new Array();
 //count for naming obj
+let arrObj = new Array();
 let count = 0;
+// objs[count] = new Object;
 newQuery = document.querySelectorAll('.emptyBoxes');
 for (let i = 0, n = newQuery.length; i < n; i++){
     newQuery[i].addEventListener('click', function(){
@@ -48,48 +47,34 @@ for (let i = 0, n = newQuery.length; i < n; i++){
         this.style.backgroundColor = hex;
     })
     newQuery[i].addEventListener('mousedown', function(){
-        if (!redoArr[count]){
-            redoArr[count] = new Object;
-        }
-        if (!undoArr[count]){
-            undoArr[count] = new Object;
+        if (!arrObj[count]){
+            arrObj[count] = new Object;
         }   
         click = true;
         this.style.backgroundColor = hex;
-        undoArr[count][this.id] = clickPrevColor;
+        arrObj[count][this.id] = clickPrevColor;
+        // count++;
+        console.log(arrObj);
     })
     newQuery[i].addEventListener('mouseup', function(){
         this.style.backgroundColor = hex;
-        if (undoArr[count]){
+        if (arrObj[count]){
             count++;
         }
     })
     newQuery[i].addEventListener('mouseover', function(){
         if (isDown){
-            //redo Array
-            if (!redoArr[count]){
-                redoArr[count] = new Object;
+            if (!arrObj[count]){
+                arrObj[count] = new Object;
             }
-            if (this.id in redoArr[count]){
-                redoArr[count][this.id] = redoArr[count][this.id];
-            } else {
-                redoArr[count][this.id] = hex;
-            }
-
-            //undo Array
-            if (!undoArr[count]){
-                undoArr[count] = new Object;
-            }
-            if (this.id in undoArr[count]){
-                undoArr[count][this.id] = undoArr[count][this.id];
-            } else {
-                prevColor = this.style.backgroundColor;
-                undoArr[count][this.id] = prevColor;
-            }
+            prevColor = this.style.backgroundColor;
+            arrObj[count][this.id] = prevColor;
             this.style.backgroundColor = hex;
+            // console.log(arrObj);
         } else {
             prevColor = this.style.backgroundColor;
             clickPrevColor = this.style.backgroundColor;
+            // console.log(clickPrevColor);
             this.style.backgroundColor = hex; 
         }
     })
@@ -105,22 +90,22 @@ for (let i = 0, n = newQuery.length; i < n; i++){
         click = false;
     })
 }
-//event listener for undo and redo onkeydown
+//event listener for ctrl + z onkeydown
 function keyPress(e){
     let eventObj = window.event ? event : e;
-    if (eventObj.keyCode == 90 && eventObj.ctrlKey && eventObj.shiftKey){
-        for (let i in redoArr[count]){
-            document.getElementById(i).style.backgroundColor = redoArr[count][i];
+    if (eventObj.keyCode == 90 && eventObj.ctrlKey){
+        for (let i in arrObj[count - 1]){
+            document.getElementById(i).style.backgroundColor = arrObj[count - 1][i];
         }
-        if (count < undoArr.length){
-            count++;
-        }
-    } else if (eventObj.keyCode == 90 && eventObj.ctrlKey){
-        for (let i in undoArr[count - 1]){
-            document.getElementById(i).style.backgroundColor = undoArr[count - 1][i];
-        }
-        if (count > 0){
+        if (count > 1){
             count--;
+        }
+    }
+    if (eventObj.keyCode == 90 && eventObj.ctrlKey && eventObj.shiftKey){
+        ++count;
+        console.log(count);
+        for (let i in arrObj[count - 1]){
+            document.getElementById(i).style.backgroundColor = arrObj[count - 1][i];
         }
     }
 }
@@ -188,81 +173,49 @@ pic.src = "css/assests/colorWheel450.png";
 //color boxes
 newElem = makeElem('div', "#colorBoxes");
 document.body.appendChild(newElem);
-//color box
+//color box;
 newElem = makeElem("div", "#colorBox");
 document.querySelector("#colorBoxes").appendChild(newElem);
 //save color box
 let saveColorBox = makeElem('div', '#saveColorBox');
-let savedColor1 = 'ffffff'; 
-let savedColor2 = 'ffffff';
-let savedColor3 = 'ffffff';
-let savedColor4 = 'ffffff';
-
+let savedColor;
+// saveColorBox.addEventListener('click', function(){
+//     savedColor = hex;
+//     this.style.backgroundColor = savedColor;
+// })
 //add buttons to saveColorBox
-let save4Buttons = makeElem('div', '#save4');
-saveColorBox.appendChild(save4Buttons);
-let currentSave = savedColor1;
-for (let i = 1; i < 5; i++){
-    newElem = makeElem('button', '.save4Buttons', i);
-    newElem.addEventListener('click', function(){
-        if (this.textContent == 1){
-            saveColorBox.style.backgroundColor = savedColor1;
-            currentSave = savedColor1;
-        } else if (this.textContent == 2){
-            saveColorBox.style.backgroundColor = savedColor2;
-            currentSave = savedColor2;
-        } else if (this.textContent == 3){
-            saveColorBox.style.backgroundColor = savedColor3;
-            currentSave = savedColor3;
-        } else {
-            saveColorBox.style.backgroundColor = savedColor4;
-            currentSave = savedColor4;
-        }
-    })
-    save4Buttons.appendChild(newElem);
-}
-
-//add save load buttons to saveColorBox
 for (let i = 0; i < 2; i++){
     if (i === 0){
         newElem = makeElem('button', '#saveButton');
         newElem.addEventListener('click', function(){
-            if (currentSave === savedColor1){
-                savedColor1 = hex;
-                saveColorBox.style.backgroundColor = savedColor1;
-            } else if (currentSave === savedColor2){
-                savedColor2 = hex;
-                saveColorBox.style.backgroundColor = savedColor2;
-            } else if (currentSave === savedColor3){
-                savedColor3 = hex;
-                saveColorBox.style.backgroundColor = savedColor3;
-            } else {
-                savedColor4 = hex;
-                saveColorBox.style.backgroundColor = savedColor4;
-            }
+            savedColor = hex;
+            saveColorBox.style.backgroundColor = savedColor;
         })
         saveColorBox.appendChild(newElem);
     } else {
         newElem = makeElem('button', '#loadButton');
         newElem.addEventListener('click', function(){
-            if (currentSave === savedColor1){
-                hex = savedColor1;
-                document.querySelector('#colorBox').style.backgroundColor = hex;
-            } else if (currentSave === savedColor2){
-                hex = savedColor2;
-                document.querySelector('#colorBox').style.backgroundColor = hex;
-            } else if (currentSave === savedColor3){
-                hex = savedColor3;
-                document.querySelector('#colorBox').style.backgroundColor = hex;
-            } else {
-                hex = savedColor4;
-                document.querySelector('#colorBox').style.backgroundColor = hex;
-            }
+            hex = savedColor;
+            document.querySelector('#colorBox').style.backgroundColor = savedColor;
         })
         saveColorBox.appendChild(newElem);
     }
+    // newElem.addEventListener('click', function(){
+    //     ani();
+    //     anitwo();
+    // })
+    // newImg = makeElem('img', '.saveLoadImg');
+    // newElem.appendChild(newImg);
 }
 document.querySelector('#colorBoxes').appendChild(saveColorBox);
+
+//// function for animations
+// function ani(){
+//     this.className ='animation';
+// }
+// function anitwo(){
+//     this.className ='animation2';
+// }
 
 //make elem function
 function makeElem(elem, label, info) {
@@ -277,3 +230,5 @@ function makeElem(elem, label, info) {
   }
   return elemBox;
 }
+
+console.log(document.querySelector('#emptyBox2').className)
