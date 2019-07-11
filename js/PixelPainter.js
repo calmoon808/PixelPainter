@@ -15,7 +15,7 @@ document.body.appendChild(newElem);
 //add rows
 let width = 60;
 let squares = width;
-for (let i = 1, j = 1; i <= 41; i++) {
+for (let i = 1, j = 1; i <= 42; i++) {
   newElem = makeElem("div", "#gridRow" + i);
   newElem.className = "gridRows";
   newElem.style.borderLeft = '1px solid black';
@@ -24,18 +24,19 @@ for (let i = 1, j = 1; i <= 41; i++) {
   while (j <= squares) {
     newElem = makeElem("div", "#emptyBox" + j);
     newElem.className = 'emptyBoxes';
-    newElem.style.backgroundColor = 'rgb(255, 255, 255)'
+    newElem.style.backgroundColor = 'transparent';
     document.querySelector("#gridRow" + i).appendChild(newElem);
     j++;
   };
   squares += width;
 }
 
-//empty boxes hover event
+//empty boxes event bools
 let prevColor;
 let clickPrevColor;
 let click = false;
 let dontChange = false;
+let undoOn = false;
 //initiate undo and redo arrays
 let undoArr = new Array();
 let redoArr = new Array();
@@ -46,17 +47,28 @@ for (let i = 0, n = newQuery.length; i < n; i++){
     newQuery[i].addEventListener('click', function(){
         dontChange = true;
         this.style.backgroundColor = hex;
+        // console.log(redoArr);
+        // console.log(undoArr);   
     })
     newQuery[i].addEventListener('mousedown', function(){
+        //if triggered after redo was used pop objects off in both arrays;
+        if (undoOn){
+            for (let i = 0, n = undoArr.length; i < n - count; i++){
+                redoArr.pop();
+                undoArr.pop();
+            }
+        }
         if (!redoArr[count]){
             redoArr[count] = new Object;
-        }
+        } 
         if (!undoArr[count]){
             undoArr[count] = new Object;
         }   
         click = true;
         this.style.backgroundColor = hex;
+        dontChange = true;
         undoArr[count][this.id] = clickPrevColor;
+        redoArr[count][this.id] = hex; 
     })
     newQuery[i].addEventListener('mouseup', function(){
         this.style.backgroundColor = hex;
@@ -67,9 +79,6 @@ for (let i = 0, n = newQuery.length; i < n; i++){
     newQuery[i].addEventListener('mouseover', function(){
         if (isDown){
             //redo Array
-            if (!redoArr[count]){
-                redoArr[count] = new Object;
-            }
             if (this.id in redoArr[count]){
                 redoArr[count][this.id] = redoArr[count][this.id];
             } else {
@@ -77,9 +86,6 @@ for (let i = 0, n = newQuery.length; i < n; i++){
             }
 
             //undo Array
-            if (!undoArr[count]){
-                undoArr[count] = new Object;
-            }
             if (this.id in undoArr[count]){
                 undoArr[count][this.id] = undoArr[count][this.id];
             } else {
@@ -116,12 +122,13 @@ function keyPress(e){
             count++;
         }
     } else if (eventObj.keyCode == 90 && eventObj.ctrlKey){
-        for (let i in undoArr[count - 1]){
-            document.getElementById(i).style.backgroundColor = undoArr[count - 1][i];
-        }
         if (count > 0){
             count--;
         }
+        for (let i in undoArr[count]){
+            document.getElementById(i).style.backgroundColor = undoArr[count][i];
+        }
+        undoOn = true;
     }
 }
 document.onkeydown = keyPress;
@@ -264,13 +271,78 @@ for (let i = 0; i < 2; i++){
 }
 document.querySelector('#colorBoxes').appendChild(saveColorBox);
 
+//save load clear and snake buttons
+newElem = makeElem('div', '#bottomButtons');
+document.body.appendChild(newElem);
+
+for (let i = 0; i < 4; i ++){
+    newElem = makeElem('button');
+    if (i === 0){
+        newElem = makeElem('button', '#save', 'SAVE');
+    } else if (i === 1){
+        newElem = makeElem('button', '#load', 'LOAD')
+    } else if (i === 2){
+        newElem = makeElem('button', '#clear', 'CLEAR');
+    } else {
+        newElem = makeElem('button', '#snakeStart');
+    }
+    newElem.className = 'botButts';
+    document.querySelector('#bottomButtons').appendChild(newElem);
+}
+
+//bottom button events
+let save;
+let empties = document.querySelectorAll('.emptyBoxes');
+document.querySelector('#save').addEventListener('click', function(){
+    save = [];
+    for (let i = 0, n = empties.length; i < n; i++){
+        save.push(empties[i].style.backgroundColor);
+    }
+})
+
+document.querySelector('#load').addEventListener('click', function(){
+    for (let i = 0, n = empties.length; i < n; i++){
+        empties[i].style.backgroundColor = save[i];
+    }
+})
+
+document.querySelector('#clear').addEventListener('click', function(){
+    for (let i = 0, n = empties.length; i < n; i++){
+        empties[i].style.backgroundColor = 'transparent';
+    }
+})
+
+let snakeOn = false;
+document.querySelector('#snakeStart').addEventListener('click', function(){
+    if (!snakeOn){
+        snakeOn = true;
+        // for (let i = 0, n = empties.length; i < n; i++){
+        //     empties[i].style.backgroundColor = 'white';
+        // }
+        document.querySelector('#snakeCanvas').style.display = 'block';
+    } else {
+        snakeOn = false;
+        for (let i = 0, n = empties.length; i < n; i++){
+            empties[i].style.backgroundColor = 'transparent';
+        }
+        document.querySelector('#snakeCanvas').style.display = 'none';
+    }
+})
+//link snake.js
+newElem = makeElem('script','#snakejs');
+newElem.src = 'js/snake.js';
+document.body.appendChild(newElem);
+
+
 //make elem function
 function makeElem(elem, label, info) {
   var elemBox = document.createElement(elem);
-  if (label[0] === "#") {
-    elemBox.id = label.slice(1);
-  } else if (label[0] === ".") {
-    elemBox.className = label.slice(1);
+  if (label){
+    if (label[0] === "#") {
+        elemBox.id = label.slice(1);
+    } else if (label[0] === ".") {
+        elemBox.className = label.slice(1);
+    }
   }
   if (info) {
     elemBox.innerHTML = info;

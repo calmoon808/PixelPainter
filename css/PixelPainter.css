@@ -1,28 +1,66 @@
+@font-face {
+    font-family: 'mgs';
+    src: url('./assests/fonts/METAG___.TTF');
+}
+
 html {
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assests/background.png');
+    background-repeat: no-repeat;
+    background-position: cover;
+    background-size: 100%, 100%;
+}
+
+h1 {
+    font-family: 'mgs';
+    font-size: 45;
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    letter-spacing: 2px;
+}
+
+body {
+    position: relative;
+    margin: 0;
+}
+
+#snakeCanvas {
+    z-index: -2;
+    width: 1320;
+    height: 1100;
+    position: absolute;
+    display: none;
+    /* background-color: white; */
 }
 
 #grid {
     position: absolute;
+    overflow: hidden;
 }
 
 #gridRow1 {
+
     border-top: 1px solid black;
 }
 
 .emptyBoxes {
+    background-color: 'transparent';
     border-bottom: 1px solid black;
     border-right: 1px solid black;
-    height: 15px;
-    width: 15px;
+    height: 21px;
+    width: 21px;
     transition-property: background;
     transition-duration: 0.5s;
     transition-timing-function: linear;
-    }
+    position: relative;
+}
 
 .emptyBoxes:hover {
     transition-property: background;
@@ -46,7 +84,7 @@ html {
     overflow: hidden;
     display: block;
     box-shadow: 0 0 10pt 2pt black;
-    left: 1100px;
+    left: 1400px;
     top: 100px;
     text-align: center;
 }
@@ -76,7 +114,7 @@ html {
     display: flex;
     position: absolute;
     top: 550px;
-    left: 1120px;
+    left: 1420px;
 }
 
 #colorbox {
@@ -86,6 +124,7 @@ html {
     border-radius: 15%;
     box-shadow: 0 0 10pt 2pt black;
     margin-right: 50px;
+    background-color: white;
 }
 
 #saveColorBox {
@@ -94,6 +133,7 @@ html {
     border: 1px solid black;
     border-radius: 10%;
     box-shadow: 0 0 10pt 2pt black;
+    background-color: white;
 }
 
 #saveColorBox button{
@@ -185,3 +225,26 @@ html {
     animation-fill-mode: forwards;
     animation-delay: 0.4s;
 } */
+
+#bottomButtons {
+    z-index: 2;
+    display: flex;
+    position: absolute;
+    top: 750px;
+    left: 1420px;
+    width: 500px;
+}
+
+#bottomButtons button {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+    border-radius: 20%;
+    box-shadow: 0 0 10pt 2pt black;
+}
+
+#bottomButtons #snakeStart {
+    background-image: url("./assests/rsz_solidsnake.png");
+    background-repeat: no-repeat;
+    background-position: center;
+} 
