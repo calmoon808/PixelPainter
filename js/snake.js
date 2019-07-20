@@ -1,6 +1,5 @@
 window.onload = function(){
     window.addEventListener("keydown", function(e) {
-        // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
         }
@@ -9,7 +8,6 @@ window.onload = function(){
 
     newElem = makeElem('canvas', '#snakeCanvas');
     document.querySelector('#grid').prepend(newElem);
-    //snake controls
     let d;
     document.addEventListener('keydown', function(event){
         if (event.keyCode == 39 && d != 'LEFT'){
@@ -22,29 +20,23 @@ window.onload = function(){
             d = 'UP';
         }
     })
-    //load img file
     newImg = new Image();
     newImg.src ='css/assests/green.png';   
     const cvs = document.getElementById('snakeCanvas');
     const ctx = cvs.getContext('2d');
-    //mapping variables;
     let vertical = 3;
     let horizontal = 5;
-    //snake length variable
     let snake = [];
     snake[0] = {
         x: 30 * horizontal, 
         y: 20 * vertical
     };
-    //setting apple food variable
     let food = {
         x: Math.floor(Math.random() * 60) * horizontal,
         y: Math.floor(Math.random() * 42) * vertical
     }
-    //score variable
     let score = 0;
 
-    //collision function
     function collision(x, y, array){
         for (let i = 0; i < array.length; i++){
             if (x == array[i].x && y == array[i].y){
@@ -54,7 +46,6 @@ window.onload = function(){
         return false;
     }
 
-    //draw function
     function draw(){
         ctx.clearRect(0, 0, cvs.clientWidth, cvs.height);
         for (let i = 0; i < snake.length; i++){
@@ -64,17 +55,12 @@ window.onload = function(){
                 ctx.fillStyle = 'green';
             }
             ctx.fillRect(snake[i].x, snake[i].y, horizontal, vertical);
-            // ctx.strokeStyle = 'red';
-            // ctx.strokeRect(snake[i].x, snake[i].y, horizontal, vertical);
         }
-        //draw apple
         ctx.drawImage(newImg, food.x, food.y, horizontal, vertical);
 
-        //log old snake head position
         let snakeX = snake[0].x;
         let snakeY = snake[0].y;
 
-        //gameover
         let gameover = false;
         if (snakeX < horizontal - horizontal - 3|| snakeX > 61 * horizontal - horizontal - 3|| snakeY + vertical * 2 - 2 < vertical|| snakeY >= 42 * vertical - 2){
             alert("GAME OVER\nYour score was " + score);
@@ -82,7 +68,6 @@ window.onload = function(){
             gameover = true;
         }
 
-        //decide which direction to move
         if (d == "LEFT"){
             snakeX -= horizontal;
         } 
@@ -96,7 +81,6 @@ window.onload = function(){
             snakeY += vertical;
         }
 
-        //if snake eats food
         if (snakeX === food.x && snakeY === food.y){
             score++;
             food = {
@@ -133,7 +117,6 @@ window.onload = function(){
     }
     let game = setInterval(draw, 55);
 
-    //make elem function
     function makeElem(elem, label, info) {
         var elemBox = document.createElement(elem);
         if (label[0] === "#") {

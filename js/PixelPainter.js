@@ -1,4 +1,3 @@
-//initiate variables
 let newElem, newButton, newQuery, newImg, hex;
 let isDown = false;
 document.addEventListener('mousedown', function(){
@@ -8,11 +7,9 @@ document.addEventListener('mouseup', function(){
     isDown = false;
 })
 
-//make grid
 newElem = makeElem("div", "#grid");
 document.body.appendChild(newElem);
 
-//add rows
 let width = 60;
 let squares = width;
 for (let i = 1, j = 1; i <= 42; i++) {
@@ -20,7 +17,6 @@ for (let i = 1, j = 1; i <= 42; i++) {
   newElem.className = "gridRows";
   newElem.style.borderLeft = '1px solid black';
   document.querySelector("#grid").appendChild(newElem);
-  //add empty boxes
   while (j <= squares) {
     newElem = makeElem("div", "#emptyBox" + j);
     newElem.className = 'emptyBoxes';
@@ -31,27 +27,21 @@ for (let i = 1, j = 1; i <= 42; i++) {
   squares += width;
 }
 
-//empty boxes event bools
 let prevColor;
 let clickPrevColor;
 let click = false;
 let dontChange = false;
 let undoOn = false;
-//initiate undo and redo arrays
 let undoArr = new Array();
 let redoArr = new Array();
-//count for naming obj
 let count = 0;
 newQuery = document.querySelectorAll('.emptyBoxes');
 for (let i = 0, n = newQuery.length; i < n; i++){
     newQuery[i].addEventListener('click', function(){
         dontChange = true;
         this.style.backgroundColor = hex;
-        // console.log(redoArr);
-        // console.log(undoArr);   
     })
     newQuery[i].addEventListener('mousedown', function(){
-        //if triggered after redo was used pop objects off in both arrays;
         if (undoOn){
             for (let i = 0, n = undoArr.length; i < n - count; i++){
                 redoArr.pop();
@@ -78,14 +68,11 @@ for (let i = 0, n = newQuery.length; i < n; i++){
     })
     newQuery[i].addEventListener('mouseover', function(){
         if (isDown){
-            //redo Array
             if (this.id in redoArr[count]){
                 redoArr[count][this.id] = redoArr[count][this.id];
             } else {
                 redoArr[count][this.id] = hex;
             }
-
-            //undo Array
             if (this.id in undoArr[count]){
                 undoArr[count][this.id] = undoArr[count][this.id];
             } else {
@@ -111,7 +98,6 @@ for (let i = 0, n = newQuery.length; i < n; i++){
         click = false;
     })
 }
-//event listener for undo and redo onkeydown
 function keyPress(e){
     let eventObj = window.event ? event : e;
     if (eventObj.keyCode == 90 && eventObj.ctrlKey && eventObj.shiftKey){
@@ -132,11 +118,9 @@ function keyPress(e){
     }
 }
 document.onkeydown = keyPress;
-//add color gradient;
 newElem = makeElem('div','#gradient');
 document.body.appendChild(newElem);
 
-//make canvas
 let canvas = makeElem('canvas', "#colorWheelCanvas");
 document.querySelector('#gradient').appendChild(canvas);
 let pic = new Image();
@@ -191,21 +175,15 @@ pic.onload = function(){
 };
 pic.src = "css/assests/colorWheel450.png";
 
-
-//color boxes
 newElem = makeElem('div', "#colorBoxes");
 document.body.appendChild(newElem);
-//color box
 newElem = makeElem("div", "#colorBox");
 document.querySelector("#colorBoxes").appendChild(newElem);
-//save color box
 let saveColorBox = makeElem('div', '#saveColorBox');
 let savedColor1 = 'ffffff'; 
 let savedColor2 = 'ffffff';
 let savedColor3 = 'ffffff';
 let savedColor4 = 'ffffff';
-
-//add buttons to saveColorBox
 let save4Buttons = makeElem('div', '#save4');
 saveColorBox.appendChild(save4Buttons);
 let currentSave = savedColor1;
@@ -229,7 +207,6 @@ for (let i = 1; i < 5; i++){
     save4Buttons.appendChild(newElem);
 }
 
-//add save load buttons to saveColorBox
 for (let i = 0; i < 2; i++){
     if (i === 0){
         newElem = makeElem('button', '#saveButton');
@@ -271,7 +248,6 @@ for (let i = 0; i < 2; i++){
 }
 document.querySelector('#colorBoxes').appendChild(saveColorBox);
 
-//save load clear and snake buttons
 newElem = makeElem('div', '#bottomButtons');
 document.body.appendChild(newElem);
 
@@ -290,7 +266,6 @@ for (let i = 0; i < 4; i ++){
     document.querySelector('#bottomButtons').appendChild(newElem);
 }
 
-//bottom button events
 let save;
 let empties = document.querySelectorAll('.emptyBoxes');
 document.querySelector('#save').addEventListener('click', function(){
@@ -316,9 +291,6 @@ let snakeOn = false;
 document.querySelector('#snakeStart').addEventListener('click', function(){
     if (!snakeOn){
         snakeOn = true;
-        // for (let i = 0, n = empties.length; i < n; i++){
-        //     empties[i].style.backgroundColor = 'white';
-        // }
         document.querySelector('#snakeCanvas').style.display = 'block';
     } else {
         snakeOn = false;
@@ -328,13 +300,10 @@ document.querySelector('#snakeStart').addEventListener('click', function(){
         document.querySelector('#snakeCanvas').style.display = 'none';
     }
 })
-//link snake.js
 newElem = makeElem('script','#snakejs');
 newElem.src = 'js/snake.js';
 document.body.appendChild(newElem);
 
-
-//make elem function
 function makeElem(elem, label, info) {
   var elemBox = document.createElement(elem);
   if (label){
