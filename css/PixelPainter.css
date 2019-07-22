@@ -37,7 +37,6 @@ body {
     height: 1100;
     position: absolute;
     display: none;
-    /* background-color: white; */
 }
 
 #grid {
@@ -172,59 +171,12 @@ body {
     background-position: center;
 }
 
-/* #saveButton img {
-    content: url('./assests/iconDown.png');
-    transition: all 0.3s linear;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-} */
-
-/* #saveButton:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-} */
-
-
 #loadButton {
     border-bottom-right-radius: 18%;
     background-image: url("./assests/iconUp.png");
     background-repeat: no-repeat;
     background-position: center;
 }
-
-/* .animation {
-    -webkit-transform: translate(100px, -100px);
-    -moz-transform: translate(100px, -100px);
-    -o-transform: translate(100px, -100px);
-    -ms-transform: translate(100px, -100px);
-    transform: translate(100px, 100px);
-    -webkit-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-}
-
-.animation2 {
-    -webkit-animation: fadeIn 0.4s ease-out;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-delay: 0.4s;
-    -moz-animation: fadeIn 0.4s ease-out;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-fill-mode: forwards;
-    -moz-animation-delay: 0.4s;
-    animation: fadeIn 0.4s ease-out;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-delay: 0.4s;
-} */
 
 #bottomButtons {
     z-index: 2;
