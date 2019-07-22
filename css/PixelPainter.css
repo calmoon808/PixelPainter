@@ -1,0 +1,202 @@
+@font-face {
+    font-family: 'mgs';
+    src: url('./assests/fonts/METAG___.TTF');
+}
+
+html {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assests/background.png');
+    background-repeat: no-repeat;
+    background-position: cover;
+    background-size: 100%, 100%;
+}
+
+h1 {
+    font-family: 'mgs';
+    font-size: 45;
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    letter-spacing: 2px;
+}
+
+body {
+    position: relative;
+    margin: 0;
+}
+
+#snakeCanvas {
+    z-index: -2;
+    width: 1320;
+    height: 1100;
+    position: absolute;
+    display: none;
+}
+
+#grid {
+    position: absolute;
+    overflow: hidden;
+}
+
+#gridRow1 {
+
+    border-top: 1px solid black;
+}
+
+.emptyBoxes {
+    background-color: 'transparent';
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    height: 21px;
+    width: 21px;
+    transition-property: background;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    position: relative;
+}
+
+.emptyBoxes:hover {
+    transition-property: background;
+    transition-duration: 0.25s;
+    transition-timing-function: linear;
+}
+
+.gridRows {
+    display: flex;
+}
+
+#gradient {
+    position: absolute;
+    background-color: white;
+    margin: 0px;
+    padding: 0;
+    width: 376px;
+    height: 376px;
+    border: 1px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    display: block;
+    box-shadow: 0 0 10pt 2pt black;
+    left: 1400px;
+    top: 100px;
+    text-align: center;
+}
+
+#colorWheelCanvas {
+    z-index: 0;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#colorPicker {
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+}
+
+#colorBoxes {
+    z-index: 2;
+    display: flex;
+    position: absolute;
+    top: 550px;
+    left: 1420px;
+}
+
+#colorbox {
+    width: 125px;
+    height: 125px;
+    border: 1px solid black;
+    border-radius: 15%;
+    box-shadow: 0 0 10pt 2pt black;
+    margin-right: 50px;
+    background-color: white;
+}
+
+#saveColorBox {
+    width: 175px;
+    height: 125px;
+    border: 1px solid black;
+    border-radius: 10%;
+    box-shadow: 0 0 10pt 2pt black;
+    background-color: white;
+}
+
+#saveColorBox button{
+    position: relative;
+    display: block;
+    height: 50.8%;
+    width: 20%;
+    margin-left: 81%;
+    border: 1px solid black;
+    bottom: 1px;
+    /* transition: all 0.3s linear; */
+}
+
+#save4 {
+    position: relative;
+    /* display: block; */
+    width: 20%;
+    border: 0;
+    margin: 0;
+    float:left;
+    left: 80px;
+}
+
+#save4 button {
+    height: 25.4%;
+    width: 100%;
+    border: 1px solid black;
+    font-size: 10px;
+    
+}
+
+#saveButton {
+    border-top-right-radius: 20%;
+    background-image: url("./assests/iconDown.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#loadButton {
+    border-bottom-right-radius: 18%;
+    background-image: url("./assests/iconUp.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#bottomButtons {
+    z-index: 2;
+    display: flex;
+    position: absolute;
+    top: 750px;
+    left: 1420px;
+    width: 500px;
+}
+
+#bottomButtons button {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+    border-radius: 20%;
+    box-shadow: 0 0 10pt 2pt black;
+}
+
+#bottomButtons #snakeStart {
+    background-image: url("./assests/rsz_solidsnake.png");
+    background-repeat: no-repeat;
+    background-position: center;
+} 
