@@ -178,7 +178,7 @@ pic.src = "css/assests/colorWheel450.png";
 newElem = makeElem('div', "#colorBoxes");
 document.body.appendChild(newElem);
 newElem = makeElem("div", "#colorBox");
-document.querySelector("#colorBoxes").appendChild(newElem);
+document.querySelector("#colorBoxes").appendChild(newElem); 
 let saveColorBox = makeElem('div', '#saveColorBox');
 let savedColor1 = 'ffffff'; 
 let savedColor2 = 'ffffff';
